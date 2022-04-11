@@ -20,7 +20,7 @@ class PmatDataset(Dataset):
         if self.preprocessing is not None:
             data_item = self.preprocessing(self.images[index], self.postures[index])
         else:
-            dât_item = self.transform(self.images[index], self.postures[index])
+            data_item = self.transform(self.images[index], self.postures[index])
     
     def __len__(self):
         return len(self.postures)
