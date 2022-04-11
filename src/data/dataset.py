@@ -4,18 +4,17 @@ import cv2
 
 
 import torch
-from torchvision.utils.data import Dataset
+from torch.utils.data import Dataset
 from torchvision.transforms import ToPILImage, ToTensor, Normalize
 
 
 class PmatDataset(Dataset):
     def __init__(self, data, preprocess=None):
         super(PmatDataset, self).__init__()
-        self.train_mode = train_mode
         self.images = data["image"]
         self.postures = data["posture"].reshape(-1)
 
-        self.perprocessing = preprocessing
+        self.perprocessing = preprocess
     
     def getitem(self, index):
         if self.preprocessing is not None:
