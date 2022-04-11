@@ -25,6 +25,7 @@ def setRandomSeed(seed=42):
         torch.backends.cudnn.benchmark = False
         torch.backends.cudnn.enabled = True
 
+
 def printDash(num = 50):
 
     print(''.join(['-']*num))
