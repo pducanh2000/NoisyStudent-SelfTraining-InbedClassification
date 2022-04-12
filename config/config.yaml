@@ -3,4 +3,7 @@ data_folder : "./dataset/"
 num_epoch   : 30
 learning_rate: 0.005
 weight_decay: 0.01
+list_model: ['efficientnet-b0', 'efficientnet-b1', 'efficientnet-b2', 
+            'efficientnet-b3','efficientnet-b4', 'efficientnet-b5', 
+            'efficientnet-b6', 'efficientnet-b7','efficientnet-b8']
 
