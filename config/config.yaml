@@ -1,0 +1,6 @@
+cfg_verbose : True
+data_folder : "./dataset/"
+num_epoch   : 30
+learning_rate: 0.005
+weight_decay: 0.01
+

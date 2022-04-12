@@ -1,7 +1,9 @@
 import os
 import random
 import numpy as np
+import yaml
 import torch
+
 
 
 def setRandomSeed(seed=42):
@@ -29,3 +31,10 @@ def setRandomSeed(seed=42):
 def printDash(num = 50):
 
     print(''.join(['-']*num))
+
+
+def load_config(config_path="./config/config.yaml"):
+    with open(config_path, "r") as F:
+        yaml_data = yaml.safe_load(F)
+    return yaml_data
+

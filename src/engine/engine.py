@@ -1,7 +1,9 @@
 import tqdm
 import torch
+from src.utils.utils import printDash
 from src.engine.engine_tools import getOptimizer, getSchedu
 from src.loss.am_softmax import AM_Softmax
+
 
 class Engine():
     def __init__(self, cfg, model):
@@ -17,4 +19,19 @@ class Engine():
 
 
     def train(self, train_loader, val_loader):
-        pass
+        for epoch in range(self.cfg["num_epoch"]):
+            self.onTrainStep(train_loader, epoch)
+            self.onValidation(val_loader, epoch)
+
+        self.onTrainEnd()
+
+        
+    def onTrainEnd(self):
+        del self.model
+        # gc.collect()
+        torch.cuda.empty_cache()
+
+        if self.cfg["cfg_verbose"]:
+            printDash()
+            print(self.cfg)
+            printDash()
