@@ -69,3 +69,34 @@ def export_data(data_dir='/content/drive/MyDrive/Inbed_Classification/dataset/ex
             data_dict[subject] = (data, labels)
 
     return data_dict
+
+
+def data_split(subject_out):
+    data = export_data()
+    keys = list(data.keys())
+
+    train_data = dict()
+    train_data["images"] = None
+    train_data["postures"] = None
+
+    test_data = dict()
+
+    train_keys = [key for key in keys if key != subject_out]
+
+    print(train_keys)
+    print(subject_out)
+
+    for key in train_keys:
+        if train_data["images"] is None:
+            train_data["images"] = data[key][0]
+            train_data["postures"] = data[key][1]
+        else:
+            train_data["images"] = np.concatenate((train_data["images"], data[key][0]), axis=0)
+            train_data["postures"] = np.concatenate((train_data["postures"], data[key][1]), axis=0)
+
+    test_data["images"] = data[subject_out][0]
+    test_data["postures"] = data[subject_out][1]
+    print(f"Train: {train_data['images'].shape[0]}, Test: {test_data['images'].shape[0]}")
+    
+    return train_data, test_data
+
