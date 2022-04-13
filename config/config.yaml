@@ -3,6 +3,7 @@ data_folder : "../dataset/"
 teacher_path: "../output/teacher.pth"
 student_path: "../output/student.pth"
 scheduler: "sgdr"
+num_class: 17
 num_epoch   : 30
 learning_rate: 0.005
 weight_decay: 0.01
