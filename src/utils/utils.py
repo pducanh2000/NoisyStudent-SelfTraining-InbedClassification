@@ -5,7 +5,6 @@ import yaml
 import torch
 
 
-
 def setRandomSeed(seed=42):
     """Reproducer for pytorch experiment.
     Parameters

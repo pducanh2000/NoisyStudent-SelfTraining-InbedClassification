@@ -4,7 +4,6 @@ from numpy import newaxis
 from scipy import ndimage
 
 
-
 position_i = ["justAPlaceholder", "symbol_1", "symbol_2",
               "symbol_3", "symbol_4", "symbol_5",
               "symbol_6", "symbol_7", "symbol_8",
