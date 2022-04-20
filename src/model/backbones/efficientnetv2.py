@@ -10,6 +10,8 @@ import torch
 import torch.nn as nn
 import math
 
+from src.model.factory import register_model
+
 __all__ = ['effnetv2_s', 'effnetv2_m', 'effnetv2_l', 'effnetv2_xl']
 
 
@@ -118,7 +120,7 @@ class MBConv(nn.Module):
 
 
 class EffNetV2(nn.Module):
-    def __init__(self, cfgs, num_classes=1000, width_mult=1.):
+    def __init__(self, cfgs, num_classes=1000, width_mult=1., **kwargs):
         super(EffNetV2, self).__init__()
         self.cfgs = cfgs
 
@@ -164,6 +166,7 @@ class EffNetV2(nn.Module):
                 m.bias.data.zero_()
 
 
+@register_model
 def effnetv2_s(**kwargs):
     """
     Constructs a EfficientNetV2-S model
@@ -180,6 +183,7 @@ def effnetv2_s(**kwargs):
     return EffNetV2(cfgs, **kwargs)
 
 
+@register_model
 def effnetv2_m(**kwargs):
     """
     Constructs a EfficientNetV2-M model
@@ -197,6 +201,7 @@ def effnetv2_m(**kwargs):
     return EffNetV2(cfgs, **kwargs)
 
 
+@register_model
 def effnetv2_l(**kwargs):
     """
     Constructs a EfficientNetV2-L model
@@ -214,6 +219,7 @@ def effnetv2_l(**kwargs):
     return EffNetV2(cfgs, **kwargs)
 
 
+@register_model
 def effnetv2_xl(**kwargs):
     """
     Constructs a EfficientNetV2-XL model

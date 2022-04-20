@@ -21,7 +21,7 @@ from .utils import (
     MemoryEfficientSwish,
     calculate_output_image_size
 )
-
+from src.model.factory import register_model
 
 VALID_MODELS = (
     'efficientnet-b0', 'efficientnet-b1', 'efficientnet-b2', 'efficientnet-b3',
@@ -393,3 +393,9 @@ class EfficientNet(nn.Module):
             Conv2d = get_same_padding_conv2d(image_size=self._global_params.image_size)
             out_channels = round_filters(32, self._global_params)
             self._conv_stem = Conv2d(in_channels, out_channels, kernel_size=3, stride=2, bias=False)
+
+
+@register_model
+def efficientnet_b0(**kwargs):
+
+    return EfficientNet.from_name('efficientnet-b0', num_classes=17)
