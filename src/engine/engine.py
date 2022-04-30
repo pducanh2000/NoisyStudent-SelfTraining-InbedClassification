@@ -6,8 +6,8 @@ from torch.utils.data import DataLoader
 from src.utils.utils import printDash
 from src.data.dataset import PmatDataset, PseudoDataset
 from src.engine.engine_tools import getOptimizer, getSchedu
-from src.loss.am_softmax import AM_Softmax, CrossEntropyLabelSmooth
-from src.model.model import EfficientNet
+from src.loss.am_softmax import CrossEntropyLabelSmooth
+from src.model.factory import create_model
 
 
 class Engine:
@@ -24,13 +24,13 @@ class Engine:
         for i in range(len(self.list_model)):
             if i == 0:
                 # Train teacher model in first step
-                self.teacher_model = EfficientNet.from_pretrain(self.list_model[i], num_class=self.cfg["num_class"])
+                self.teacher_model = create_model(self.list_model[i], pretrained=True)
                 train_dataset = PmatDataset(train_data)
                 val_dataset = PmatDataset(val_data)
                 _ = self.train_model(self.teacher_model, train_dataset, val_dataset, save_path=self.cfg["teacher_path"])
 
             # Create the pseudo labels for student training
-            self.student_model = EfficientNet.from_pretrain(self.list_model[i + 1], num_class=self.cfg["num_class"])
+            self.student_model = create_model(self.list_model[i+1], pretrained=True)
             pseudo_train_dataset = PseudoDataset(self.teacher_model, self.device,
                                                  train_data, self.cfg["teacher_path"], soft=True)
             pseudo_val_dataset = PseudoDataset(self.teacher_model, self.device,
