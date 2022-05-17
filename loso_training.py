@@ -10,7 +10,7 @@ val_accs = []
 for index_out in range(1, 14):
     print(f"################ Subject {index_out} #################")
     train_data, val_data = data_split(subject_out='S' + str(index_out))
-    val_acc = eng.train(train_data, val_data)
+    val_acc = eng.self_training(train_data, val_data)
     val_accs.append(val_acc)
 
 print("Validation accuracy on each sbj: ", val_accs)

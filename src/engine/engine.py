@@ -19,18 +19,18 @@ class Engine:
         self.loss_fn = CrossEntropyLabelSmooth(num_classes=self.cfg["num_class"])
         self.list_model = cfg.list_model
 
-    def train(self, train_data, val_data):
+    def self_training(self, train_data, val_data):
         val_acc_score = 0
         for i in range(len(self.list_model)):
             if i == 0:
                 # Train teacher model in first step
-                self.teacher_model = create_model(self.list_model[i], pretrained=True)
+                self.teacher_model = create_model(self.list_model[i], pretrained=True,num_classes=17)
                 train_dataset = PmatDataset(train_data)
                 val_dataset = PmatDataset(val_data)
                 _ = self.train_model(self.teacher_model, train_dataset, val_dataset, save_path=self.cfg["teacher_path"])
 
             # Create the pseudo labels for student training
-            self.student_model = create_model(self.list_model[i+1], pretrained=True)
+            self.student_model = create_model(self.list_model[i+1], pretrained=True, num_classes=17)
             pseudo_train_dataset = PseudoDataset(self.teacher_model, self.device,
                                                  train_data, self.cfg["teacher_path"], soft=True)
             pseudo_val_dataset = PseudoDataset(self.teacher_model, self.device,
